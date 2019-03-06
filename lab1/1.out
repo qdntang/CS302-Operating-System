@@ -1,0 +1,27 @@
+[test]
+test/a e
+test/b
+test/c
+
+
+[test/a e]
+test/a e/d
+test/a e/e
+test/a e/f
+
+
+[test/b]
+test/b/g
+test/b/h
+test/b/i
+test/b/j
+
+
+[test/b/g]
+
+
+[test/c]
+
+
+[Directories Count]:4
+[Files Count]:6

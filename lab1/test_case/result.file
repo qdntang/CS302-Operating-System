@@ -1,0 +1,12 @@
+2a3,4
+> /home/stvn/os/lab1/test_case/test_directory/\n\t%^&*\0\9$1
+> /home/stvn/os/lab1/test_case/test_directory/\n\t\0
+6,7d7
+< /home/stvn/os/lab1/test_case/test_directory/\n\t\0
+< /home/stvn/os/lab1/test_case/test_directory/\n\t%^&*\0\9$1
+10a11,12
+> [\n\t%^&*\0\9$1]
+> 
+24,25d25
+< 
+< [\n\t%^&*\0\9$1]
