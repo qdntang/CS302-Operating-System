@@ -11,28 +11,37 @@ int main()
 	int ppid;/* 保存父进程的id号 */
 	char buf[256];
   
+	char *prog_argv[2];
+	prog_argv[0] = "/usr/bin/vi";
+	prog_argv[1] = NULL;
+	
+	pid_t spid = tcgetsid(0);
+
 	ppid=getpid();//得到近程号
 	cpid=fork();
   
 	if (cpid<0)
 		exit(-1);
-    
+  	  
 	if (!cpid)
 	{
 		fprintf(stdout,"ID(child)=%d\n",getpid());
 
 		/* 使子进程所在的进程组成为前台进程组，然后执行vi */
-		setpgid(0,0);
+		//setpgid(0,0);
 		tcsetpgrp(0,getpid());
-		execvp("/bin/vi","vi",NULL);
+		int ret = execv(prog_argv[0], prog_argv);
+		fprintf(stdout, "fuck");
 		exit(-1);
 	}
-   
+  	signal(SIGTTOU, SIG_IGN); 
 	fprintf(stdout,"ID(parent)=%d\n",ppid);
 	setpgid(cpid,cpid);/* 设置进程组 */
 	tcsetpgrp(0,cpid);/* 设置控制终端为子进程拥有 */
 	waitpid(cpid,NULL,0);/* 父进程等待子进程执行完毕，所在进程组成为前台进程组 */
-	tcsetpgrp(0,ppid);
+	setpgid(0,ppid);
+
+	int ret = tcsetpgrp(0,ppid);
 
 	//父进程等待终端输入，然后回显
 	while(1)

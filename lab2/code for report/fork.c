@@ -6,28 +6,27 @@
 int main(int argc,char* argv[])
 {
 	int pid;
-	char *prog_argv[4];
+	char *prog_argv[3];
 
-	/* å»ºç«‹å‚æ•°è¡¨ */
-	prog_argv[0]="/bin/ls";
-	prog_argv[1]="-l";
-	prog_argv[2]="/";
-	prog_argv[3]=NULL;
+	/* ½¨Á¢²ÎÊı±í */
+	prog_argv[0]="/usr/bin/vi";
+	prog_argv[1]="vi";
+	prog_argv[2]=NULL;
 
-	/* ä¸ºå‘½ä»¤lsåˆ›å»ºè¿›ç¨‹ */
+	/* ÎªÃüÁîls´´½¨½ø³Ì */
 	if ((pid=fork())<0)
 	{
 		perror("Fork failed");
 		exit(errno);
 	}
 
-	if (!pid)/* è¿™æ˜¯å­è¿›ç¨‹ï¼Œæ‰§è¡Œå‘½ä»¤ls */
+	if (!pid)/* ÕâÊÇ×Ó½ø³Ì£¬Ö´ĞĞÃüÁîls */
 	{
 		printf("argc = %d, argv[0] = %s",argc,argv[0]);
-		execvp(prog_argv[0],prog_argv);
+		int ret = execv(prog_argv[0],prog_argv);
 	}
 
-	if (pid)/* è¿™æ˜¯çˆ¶è¿›ç¨‹ï¼Œç­‰å¾…å­è¿›ç¨‹æ‰§è¡Œç»“æŸ*/
+	if (pid)/* ÕâÊÇ¸¸½ø³Ì£¬µÈ´ı×Ó½ø³ÌÖ´ĞĞ½áÊø*/
 	{
 		waitpid(pid,NULL,0);
 	}

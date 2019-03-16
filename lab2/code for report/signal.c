@@ -6,17 +6,17 @@
 #include <sys/ioctl.h>
 #include <sys/termios.h>
 
-void ChildHandler (int sig, siginfo_t* sip, void* notused)/* ä¿¡å·å¤„ç†å‡½æ•° */
+void ChildHandler (int sig, siginfo_t* sip, void* notused)/* ĞÅºÅ´¦Àíº¯Êı */
 
 {
 	int status;
 	printf("The process generating the signal is PID: %d\n",sip->si_pid);
 	fflush(stdout);
 	status=0;
-	if(sip->si_pid==waitpid(sip->si_pid, &status, WNOHANG))/* WNOHANG è¡¨ç¤ºå¦‚æœæ²¡æœ‰å­è¿›ç¨‹é€€å‡ºï¼Œå°±ä¸ç­‰å¾… */
+	if(sip->si_pid==waitpid(sip->si_pid, &status, WNOHANG))/* WNOHANG ±íÊ¾Èç¹ûÃ»ÓĞ×Ó½ø³ÌÍË³ö£¬¾Í²»µÈ´ı */
 	{
 		if(WIFEXITED(status)||WTERMSIG(status))
-			printf("The child is gone!!!!!\n");/* å­è¿›ç¨‹é€€å‡º */
+			printf("The child is gone!!!!!\n");/* ×Ó½ø³ÌÍË³ö */
 		else
 			printf("Uninteresting\n");/* alive */
 	}else
@@ -28,9 +28,9 @@ void ChildHandler (int sig, siginfo_t* sip, void* notused)/* ä¿¡å·å¤„ç†å‡½æ•° 
 int main()
 {
 	struct sigaction action;
-	action.sa_sigaction=ChildHandler;/* æ³¨å†Œä¿¡å·å¤„ç†å‡½æ•° */
+	action.sa_sigaction=ChildHandler;/* ×¢²áĞÅºÅ´¦Àíº¯Êı */
 	sigfillset(&action.sa_mask);
-	action.sa_flags = SA_SIGINFO;/* SA_SIGINFOè¡¨ç¤ºå…è®¸å‘å¤„ç†å‡½æ•°ä¼ é€’ä¿¡æ¯ */
+	action.sa_flags = SA_SIGINFO;/* SA_SIGINFO±íÊ¾ÔÊĞíÏò´¦Àíº¯Êı´«µİĞÅÏ¢ */
 	sigaction(SIGCHLD,&action,NULL);
   
 	int pid;
