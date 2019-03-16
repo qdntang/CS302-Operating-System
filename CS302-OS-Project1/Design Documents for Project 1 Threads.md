@@ -6,3 +6,14 @@
 
 ### Task 1: Efficient Alarm Clock
 
+#### Data Structure and Functions:
+
+In `threads/threads.h` we add 
+
+```c
+#include <cstdio>
+using namespace std;
+```
+
+#### Algorithms:
+
