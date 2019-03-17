@@ -7,14 +7,9 @@
 #include "threads/thread.h"
 #include "devices/timer.h"
 
-void test() {
-	printf("test\n");
-}
-
 void
 test_alarm_negative (void) 
 {
-  timer_sleep (5);
-  test();
+  timer_sleep (-100);
   pass ();
 }
