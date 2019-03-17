@@ -10,6 +10,6 @@
 void
 test_alarm_negative (void) 
 {
-  timer_sleep (-100);
+  timer_sleep (10);
   pass ();
 }
